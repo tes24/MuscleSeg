@@ -1,2 +1,10 @@
 # MuscleSeg
 Segmentation software for muscle, from Mendieta-Serrano 2022
+
+As manual cell segmentation of muscle fibres is highly time-consuming, a semi-automated pipeline, which we termed Seg2, was developed to assist cell segmentation. In most automated pipelines, incomplete cell segmentations are typically discarded. Due to the image limitations and the highly dynamic nature of the developing myotome, we found that such incomplete cell segmentations were common using available software packages. However, we observed that most failed segmentations were the result of easily identifiable errors, such as split segmentation or membrane gaps. Seg2 maintains partial segmentations and then a simple interface enables a user to quickly annotate the preliminary segmentation. This annotated dataset is then fed into a second round of segmentation. We outline the steps below.
+
+Each segmentation round is comprised of the following series of image transformations. First, tracking data were used to subset imaging movies into files containing individual cells (cell file) using a custom macro in Fiji. Then, the cell image was denoised and reconstructed using Richardson-Lucy deconvolution (Lucy, 1974; Richardson, 1972). Next, we used the adaptive thresholding algorithm (implemented using OpenCV) with a means filter (AMT) to separate the cell membrane from the background. Cell seeds were then identified using a hybrid of AMT and distance mapping. AMT was responsible for generating most of the seeds, while distance mapping assisted with picking up smaller seeds that AMT missed. OpenCV’s watershedding function was then used to propagate the seeds until membrane boundaries or other propagating segments were reached.
+
+The output of the first segmentation round was inspected by a human who could either leave the segmentation untouched or make annotations to guide the machine in improving the segmentation. These annotations were then fed into another round of segmentation that uses the same steps as the first but modifies the image and segmentation output according to the annotations made. 
+
+
