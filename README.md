@@ -7,4 +7,4 @@ Each segmentation round is comprised of the following series of image transforma
 
 The output of the first segmentation round was inspected by a human who could either leave the segmentation untouched or make annotations to guide the machine in improving the segmentation. These annotations were then fed into another round of segmentation that uses the same steps as the first but modifies the image and segmentation output according to the annotations made. 
 
-
+Please note, we are finalising editing this software for public access and the full code will be available soon.
